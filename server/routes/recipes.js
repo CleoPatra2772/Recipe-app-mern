@@ -26,10 +26,10 @@ router.post("/", async(req, res) => {
 });
 
 router.put("/", async(req, res) => {
-   
+    const recipe = await RecipeModel.findById(req.body.recipeID);
+    const user = await UserModel.findById(req.body.userID);
     try{
-        const recipe = await RecipeModel.findById(req.body.recipeID);
-        const user = await UserModel.findById(req.body.userID);
+      
         user.savedRecipes.push(recipe);
         await user.save();
         res.json({savedRecipes: user.savedRecipes});
